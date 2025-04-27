@@ -1,36 +1,21 @@
 package apiTests;
 
+import controllers.UserController;
+import dto.User;
+import dto.UserResponse;
+import enums.UserStatus;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
-
 public class PetUserTests {
     @Test
     void createUser() {
-        String baseUrl = "https://petstore.swagger.io/v2/";
-        String userEndpoint = "user";
-        String body = """
-                {
-                    "id": 0,
-                    "username": "string",
-                    "firstname": "string",
-                    "lastname": "string",
-                    "email": "string",
-                    "password": "string",
-                    "phone": "string",
-                    "userStatus": 0
-                }""";
+        User user = new User(0, "string", "string", "string", "string", "string", "string", UserStatus.ACTIVE);
 
-        Response response = given()
-                .baseUri(baseUrl)
-                .header("accept", "application/json")
-                .header("Content-Type", "application/json")
-                .body(body).
-                when().post(userEndpoint).andReturn();
+        UserController userController = new UserController();
+        Response response = userController.createUser(user);
+
         response.body().prettyPrint();
 
         Assertions.assertEquals(200, response.statusCode());
@@ -38,31 +23,24 @@ public class PetUserTests {
 
     @Test
     void checkUserResponseBody() {
-        String baseUrl = "https://petstore.swagger.io/v2/";
-        String userEndpoint = "user";
-        String body = """
-                {
-                    "id": 0,
-                    "username": "string",
-                    "firstname": "string",
-                    "lastname": "string",
-                    "email": "string",
-                    "password": "string",
-                    "phone": "string",
-                    "userStatus": 0
-                }""";
+        User user = new User(0, "string", "string", "string", "string", "string", "string", UserStatus.ACTIVE);
 
-        given()
-                .baseUri(baseUrl)
-                .header("accept", "application/json")
-                .header("Content-Type", "application/json")
-                .body(body).
-                when()
-                .post(userEndpoint)
-                .then()
-                .statusCode(200)
-                .body("code", equalTo(200))
-                .body("type", equalTo("unknown"))
-                .body("message", notNullValue(String.class));
-        }
+        UserController userController = new UserController();
+        Response response = userController.createUser(user);
+
+        response.body().prettyPrint();
+
+        UserResponse createdUser = response.as(UserResponse.class);
+
+        Assertions.assertEquals(200, response.statusCode());
+        Assertions.assertEquals(200, createdUser.getCode());
+        Assertions.assertEquals("unknown", createdUser.getType());
+        Assertions.assertTrue(Long.parseLong(createdUser.getMessage()) > 1713978314113L);
+    }
+
+    //TODO:
+    // tests for
+    // *PUT - update user
+    // *GET - fetch user by username
+    // *DELETE - remove user from system
 }
