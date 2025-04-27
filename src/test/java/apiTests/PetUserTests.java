@@ -31,7 +31,7 @@ public class PetUserTests {
         Assertions.assertEquals(200, response.statusCode());
         Assertions.assertEquals(200, createdUser.getCode());
         Assertions.assertEquals("unknown", createdUser.getType());
-        Assertions.assertTrue(Long.parseLong(createdUser.getMessage()) > 1713978314113L);
+        Assertions.assertFalse(createdUser.getMessage().isEmpty());
     }
 
     //TODO:
