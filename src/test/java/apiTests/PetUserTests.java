@@ -1,20 +1,19 @@
 package apiTests;
 
 import controllers.UserController;
-import dto.User;
 import dto.UserResponse;
-import enums.UserStatus;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static constants.CommonConstants.DEFAULT_USER;
+
 public class PetUserTests {
+    UserController userController = new UserController();
+
     @Test
     void createUser() {
-        User user = new User(0, "string", "string", "string", "string", "string", "string", UserStatus.ACTIVE);
-
-        UserController userController = new UserController();
-        Response response = userController.createUser(user);
+        Response response = userController.createUser(DEFAULT_USER);
 
         response.body().prettyPrint();
 
@@ -23,10 +22,7 @@ public class PetUserTests {
 
     @Test
     void checkUserResponseBody() {
-        User user = new User(0, "string", "string", "string", "string", "string", "string", UserStatus.ACTIVE);
-
-        UserController userController = new UserController();
-        Response response = userController.createUser(user);
+        Response response = userController.createUser(DEFAULT_USER);
 
         response.body().prettyPrint();
 
