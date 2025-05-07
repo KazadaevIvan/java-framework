@@ -6,25 +6,15 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.LoginPage;
 
-public class SimpleUITests {
-    WebDriver driver;
+import java.time.Duration;
 
-    public static final String BASE_URL = "https://bonigarcia.dev/selenium-webdriver-java/";
-
-    @BeforeEach
-    void setup() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
-
-    @AfterEach
-    void tearDown() {
-        driver.quit();
-    }
+public class SimpleUITests extends BaseTest {
 
     @Test
     void openSiteTest() {
@@ -33,6 +23,8 @@ public class SimpleUITests {
 
     @Test
     void openWebFromPageTest() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+
         driver.get(BASE_URL);
 
         driver.findElement(By.xpath("//a[@href='web-form.html']")).click();
@@ -40,10 +32,20 @@ public class SimpleUITests {
         WebElement submitButton = driver.findElement(By.xpath("//button[text()='Submit']"));
 
         JavascriptExecutor jsExecutor = (JavascriptExecutor) driver;
-        jsExecutor.executeScript("arguments[0].scrollIntoView;", submitButton);
+        jsExecutor.executeScript("arguments[0].click();", submitButton);
 
+        wait.until(ExpectedConditions.urlContains("submitted-form.html"));
         WebElement title = driver.findElement(By.className("display-6"));
 
         Assertions.assertEquals("Form submitted", title.getText());
+    }
+
+    @Test
+    void loginTest() {
+        LoginPage loginPage = new LoginPage(driver);
+
+        loginPage.login();
+
+        Assertions.assertEquals("Login successful", loginPage.getSuccessAlertText());
     }
 }
