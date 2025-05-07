@@ -14,8 +14,8 @@ public class LoginPage extends BasePage {
     @FindBy(id = "success")
     private WebElement successAlert;
 
-    public static final String VALID_USER = "user";
-    public static final String VALID_PASSWORD = "user";
+    public static final String VALID_USER = testConfig.getLogin();
+    public static final String VALID_PASSWORD = testConfig.getPassword();
 
     public LoginPage(WebDriver driver) {
         super(driver);
