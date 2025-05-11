@@ -1,6 +1,8 @@
 package controllers;
 
 import dto.User;
+import io.qameta.allure.Step;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -14,12 +16,13 @@ public class UserController {
 
     public UserController() {
         this.requestSpecification = given()
-                .log().all()
+                .filter(new AllureRestAssured())
                 .accept(JSON)
                 .contentType(JSON)
                 .baseUri(BASE_URI);
     }
 
+    @Step("Create user")
     public Response createUser(User user) {
         return given(this.requestSpecification)
                 .body(user)
@@ -28,6 +31,7 @@ public class UserController {
                 .andReturn();
     }
 
+    @Step("Update user")
     public Response updateUser(User user) {
         return given(this.requestSpecification)
                 .body(user)
@@ -36,6 +40,7 @@ public class UserController {
                 .andReturn();
     }
 
+    @Step("Get user by username '{username}'")
     public Response getUserByUsername(String username) {
         return given(this.requestSpecification)
                 .when()
@@ -43,6 +48,7 @@ public class UserController {
                 .andReturn();
     }
 
+    @Step("Delete user by username '{username}'")
     public Response deleteUserByUsername(String username) {
         return given(this.requestSpecification)
                 .when()
