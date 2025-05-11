@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -14,20 +15,19 @@ public class LoginPage extends BasePage {
     @FindBy(id = "success")
     private WebElement successAlert;
 
-    public static final String VALID_USER = testConfig.getLogin();
-    public static final String VALID_PASSWORD = testConfig.getPassword();
-
     public LoginPage(WebDriver driver) {
         super(driver);
         driver.get(BASE_URL + "login-form.html");
     }
 
-    public void login() {
-        usernameInput.sendKeys(VALID_USER);
-        passwordInput.sendKeys(VALID_PASSWORD);
+    @Step("Login with username '{username}' and password '{password}'")
+    public void login(String username, String password) {
+        usernameInput.sendKeys(username);
+        passwordInput.sendKeys(password);
         loginButton.click();
     }
 
+    @Step("Get Success Alert text")
     public String getSuccessAlertText() {
         return successAlert.getText();
     }
