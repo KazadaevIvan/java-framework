@@ -30,6 +30,7 @@ public class PetUserTests {
     }
 
     @Test
+    @DisplayName("Check user can be updated")
     void checkUserCanBeUpdated() {
         user.setFirstName("Petr");
 
@@ -46,6 +47,7 @@ public class PetUserTests {
     }
 
     @Test
+    @DisplayName("Check user can be fetched by username")
     void checkUserCanBeFetchedByUsername() {
         Response fetchResponse = userController.getUserByUsername(user.getUsername());
 
@@ -55,6 +57,7 @@ public class PetUserTests {
 
     @Test
     @Tag(SKIP_CLEANUP_TAG)
+    @DisplayName("Check user can be deleted")
     void checkUserCanBeDeleted() {
         Response deleteResponse = userController.deleteUserByUsername(user.getUsername());
         UserResponse deletedUser = deleteResponse.as(UserResponse.class);
