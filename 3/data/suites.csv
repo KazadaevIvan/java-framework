@@ -1,0 +1,7 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"broken","Sun May 11 10:54:36 GMT 2025","Sun May 11 10:54:38 GMT 2025","1272","","ui.SimpleUITests","","ui.SimpleUITests","loginTest","Login test",""
+"passed","Sun May 11 10:54:36 GMT 2025","Sun May 11 10:54:36 GMT 2025","152","","apiTests.PetUserTests","","apiTests.PetUserTests","checkUserCanBeDeleted","checkUserCanBeDeleted()",""
+"broken","Sun May 11 10:54:38 GMT 2025","Sun May 11 10:54:38 GMT 2025","328","","ui.SimpleUITests","","ui.SimpleUITests","openWebFormPageTest","Open web form test",""
+"passed","Sun May 11 10:54:36 GMT 2025","Sun May 11 10:54:36 GMT 2025","174","","apiTests.PetUserTests","","apiTests.PetUserTests","checkUserCanBeUpdated","checkUserCanBeUpdated()",""
+"broken","Sun May 11 10:54:38 GMT 2025","Sun May 11 10:54:38 GMT 2025","225","","ui.SimpleUITests","","ui.SimpleUITests","openSiteTest","Open site test",""
+"passed","Sun May 11 10:54:34 GMT 2025","Sun May 11 10:54:36 GMT 2025","2125","","apiTests.PetUserTests","","apiTests.PetUserTests","checkUserCanBeFetchedByUsername","checkUserCanBeFetchedByUsername()",""
